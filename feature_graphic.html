@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini Free - Feature Graphic (1024x500)</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .feature-graphic {
+            width: 1024px;
+            height: 500px;
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 40%, #FBBC04 70%, #EA4335 100%);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+        }
+
+        .logo-circle {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .logo-g {
+            font-size: 80px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #4285F4, #34A853, #FBBC04, #EA4335);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title {
+            font-size: 72px;
+            font-weight: 900;
+            color: white;
+            margin: 0;
+            text-align: center;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 32px;
+            color: rgba(255,255,255,0.95);
+            margin: 15px 0 0 0;
+            text-align: center;
+            font-weight: 500;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .features {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 25px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            right: -100px;
+        }
+
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -50px;
+            left: -50px;
+        }
+
+        .circle-3 {
+            width: 150px;
+            height: 150px;
+            top: 50px;
+            left: 100px;
+        }
+
+        .instructions {
+            color: white;
+            text-align: center;
+            margin-top: 30px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="feature-graphic">
+            <div class="decorative-circle circle-1"></div>
+            <div class="decorative-circle circle-2"></div>
+            <div class="decorative-circle circle-3"></div>
+
+            <div class="content">
+                <div class="logo-circle">
+                    <div class="logo-g">G</div>
+                </div>
+
+                <h1 class="title">GEMINI FREE</h1>
+                <p class="subtitle">Your Free AI Assistant</p>
+
+                <div class="features">
+                    <div class="feature-item">💬 Unlimited Chat</div>
+                    <div class="feature-item">📸 Image Analysis</div>
+                    <div class="feature-item">🎨 Beautiful UI</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <p><strong>Instructions:</strong> Take a screenshot of the colored box above (1024x500px) to use as Feature Graphic</p>
+            <p>Press F11 for fullscreen, then use screenshot tool</p>
+        </div>
+    </div>
+</body>
+</html>

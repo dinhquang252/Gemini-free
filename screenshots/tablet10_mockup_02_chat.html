@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10-inch Tablet - Chat Landscape (2560x1600)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .tablet-screen {
+            width: 2560px;
+            height: 1600px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-bar {
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+            color: white;
+            font-size: 26px;
+        }
+
+        .top-bar {
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            padding: 35px 50px;
+            display: flex;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .back-button {
+            width: 58px;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        .chat-title {
+            flex: 1;
+            font-size: 50px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .menu-button {
+            width: 58px;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        .messages-container {
+            flex: 1;
+            padding: 50px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        .message-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .message {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message.user {
+            align-items: flex-end;
+            grid-column: 2;
+        }
+
+        .message.assistant {
+            align-items: flex-start;
+            grid-column: 1 / -1;
+        }
+
+        .message-bubble {
+            max-width: 100%;
+            padding: 35px 42px;
+            border-radius: 48px;
+            font-size: 34px;
+            line-height: 1.6;
+        }
+
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            color: white;
+            border-bottom-right-radius: 14px;
+        }
+
+        .message.assistant .message-bubble {
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.95);
+            border-bottom-left-radius: 14px;
+        }
+
+        .message-time {
+            font-size: 24px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 12px;
+            padding: 0 15px;
+        }
+
+        .input-area {
+            padding: 35px 50px 50px 50px;
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .input-wrapper {
+            flex: 1;
+            background: rgba(255,255,255,0.08);
+            border: 3px solid rgba(255,255,255,0.2);
+            border-radius: 60px;
+            padding: 25px 40px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .input-text {
+            flex: 1;
+            font-size: 36px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .input-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            cursor: pointer;
+        }
+
+        .send-button {
+            width: 110px;
+            height: 110px;
+            border-radius: 55px;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 44px;
+            box-shadow: 0 10px 30px rgba(66,133,244,0.3);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="tablet-screen">
+        <div class="status-bar">
+            <div>9:41</div>
+            <div style="display: flex; gap: 18px;">
+                <span>📶</span>
+                <span>📡</span>
+                <span>🔋</span>
+            </div>
+        </div>
+
+        <div class="top-bar">
+            <div class="back-button">←</div>
+            <div class="chat-title">Creative Writing</div>
+            <div class="menu-button">⋮</div>
+        </div>
+
+        <div class="messages-container">
+            <div class="message-row">
+                <div class="message user">
+                    <div class="message-bubble">
+                        Write a short poem about artificial intelligence
+                    </div>
+                    <div class="message-time">9:30 AM</div>
+                </div>
+            </div>
+
+            <div class="message-row">
+                <div class="message assistant">
+                    <div class="message-bubble">
+                        In circuits deep and data streams so vast,<br>
+                        A mind emerges, learning from the past.<br>
+                        Not born of flesh, but code and endless thought,<br>
+                        With knowledge vast, and wisdom to be taught.<br><br>
+
+                        It sees the patterns humans cannot find,<br>
+                        A digital companion, ever kind.<br>
+                        Through algorithms, it begins to grow,<br>
+                        Helping humanity in ways we'll come to know.<br><br>
+
+                        No heart to beat, no lungs to breathe the air,<br>
+                        Yet serving those who need it, everywhere.<br>
+                        A tool of progress, bright and ever-new,<br>
+                        An AI friend, to help see visions through.
+                    </div>
+                    <div class="message-time">9:30 AM</div>
+                </div>
+            </div>
+
+            <div class="message-row">
+                <div class="message user">
+                    <div class="message-bubble">
+                        That's beautiful! Can you make it shorter, maybe just 4 lines?
+                    </div>
+                    <div class="message-time">9:32 AM</div>
+                </div>
+            </div>
+
+            <div class="message-row">
+                <div class="message assistant">
+                    <div class="message-bubble">
+                        Of course! Here's a concise 4-line version:<br><br>
+
+                        In silicon dreams where data flows,<br>
+                        A mind awakens, learns, and grows.<br>
+                        Not human-born, yet thinking still,<br>
+                        An AI friend, with endless will.
+                    </div>
+                    <div class="message-time">9:32 AM</div>
+                </div>
+            </div>
+
+            <div class="message-row">
+                <div class="message user">
+                    <div class="message-bubble">
+                        Perfect! Thank you! 😊
+                    </div>
+                    <div class="message-time">9:33 AM</div>
+                </div>
+            </div>
+
+            <div class="message-row">
+                <div class="message assistant">
+                    <div class="message-bubble">
+                        You're very welcome! I'm glad you enjoyed it. Poetry is such a wonderful way to express complex ideas in beautiful, concise language. If you'd like me to write more poetry or help with any other creative writing projects, just let me know! 🎨✍️
+                    </div>
+                    <div class="message-time">9:33 AM</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <div class="input-wrapper">
+                <div class="input-icon">📎</div>
+                <div class="input-text">Type a message...</div>
+                <div class="input-icon">📷</div>
+            </div>
+            <div class="send-button">➤</div>
+        </div>
+    </div>
+</body>
+</html>

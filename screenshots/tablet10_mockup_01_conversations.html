@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10-inch Tablet - Conversations Landscape (2560x1600)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .tablet-screen {
+            width: 2560px;
+            height: 1600px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 900px 1fr;
+        }
+
+        /* Left Panel - Conversation List */
+        .left-panel {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            border-right: 2px solid rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-bar {
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            color: white;
+            font-size: 28px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            padding: 50px 40px;
+        }
+
+        .header-title {
+            font-size: 58px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .header-subtitle {
+            font-size: 30px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .conversation-list {
+            flex: 1;
+            padding: 30px 30px;
+            overflow-y: auto;
+        }
+
+        .conversation-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 30px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            border: 2px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .conversation-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(66,133,244,0.4);
+        }
+
+        .conversation-card.active {
+            background: rgba(66,133,244,0.15);
+            border-color: #4285F4;
+        }
+
+        .conversation-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 3px solid rgba(255,255,255,0.1);
+        }
+
+        .avatar-inner {
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+        }
+
+        .conversation-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .conversation-title {
+            font-size: 34px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .conversation-preview {
+            font-size: 26px;
+            color: rgba(255,255,255,0.6);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .conversation-time {
+            font-size: 24px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Right Panel - Welcome/Empty State */
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .right-status-bar {
+            height: 80px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 50px;
+        }
+
+        .settings-button {
+            width: 56px;
+            height: 56px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+        }
+
+        .welcome-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px;
+        }
+
+        .welcome-logo {
+            width: 240px;
+            height: 240px;
+            border-radius: 70px;
+            background: linear-gradient(135deg, #4285F4, #34A853, #FBBC04, #EA4335);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 140px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 50px;
+            box-shadow: 0 25px 70px rgba(66,133,244,0.3);
+        }
+
+        .welcome-title {
+            font-size: 68px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .welcome-subtitle {
+            font-size: 38px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 60px;
+        }
+
+        .new-chat-button {
+            padding: 28px 70px;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            color: white;
+            font-size: 36px;
+            font-weight: 700;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 12px 40px rgba(66,133,244,0.4);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+            margin-top: 70px;
+            max-width: 1200px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 35px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .feature-icon {
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 26px;
+            color: rgba(255,255,255,0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="tablet-screen">
+        <!-- Left Panel - Conversations -->
+        <div class="left-panel">
+            <div class="status-bar">
+                <div>9:41</div>
+                <div style="display: flex; gap: 15px;">
+                    <span>📶</span>
+                    <span>📡</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="header">
+                <div class="header-title">Gemini AI</div>
+                <div class="header-subtitle">Your conversations</div>
+            </div>
+
+            <div class="conversation-list">
+                <div class="conversation-card active">
+                    <div class="conversation-avatar">
+                        <div class="avatar-inner">💬</div>
+                    </div>
+                    <div class="conversation-content">
+                        <div class="conversation-title">Creative Writing</div>
+                        <div class="conversation-preview">Help me write a short story...</div>
+                    </div>
+                    <div class="conversation-time">2h</div>
+                </div>
+
+                <div class="conversation-card">
+                    <div class="conversation-avatar">
+                        <div class="avatar-inner">💻</div>
+                    </div>
+                    <div class="conversation-content">
+                        <div class="conversation-title">Coding Help</div>
+                        <div class="conversation-preview">Binary search algorithm...</div>
+                    </div>
+                    <div class="conversation-time">5h</div>
+                </div>
+
+                <div class="conversation-card">
+                    <div class="conversation-avatar">
+                        <div class="avatar-inner">✈️</div>
+                    </div>
+                    <div class="conversation-content">
+                        <div class="conversation-title">Travel Planning</div>
+                        <div class="conversation-preview">7-day Japan itinerary...</div>
+                    </div>
+                    <div class="conversation-time">1d</div>
+                </div>
+
+                <div class="conversation-card">
+                    <div class="conversation-avatar">
+                        <div class="avatar-inner">🎨</div>
+                    </div>
+                    <div class="conversation-content">
+                        <div class="conversation-title">Image Analysis</div>
+                        <div class="conversation-preview">What do you see in this...</div>
+                    </div>
+                    <div class="conversation-time">2d</div>
+                </div>
+
+                <div class="conversation-card">
+                    <div class="conversation-avatar">
+                        <div class="avatar-inner">🧠</div>
+                    </div>
+                    <div class="conversation-content">
+                        <div class="conversation-title">Learning Python</div>
+                        <div class="conversation-preview">Explain OOP concepts...</div>
+                    </div>
+                    <div class="conversation-time">3d</div>
+                </div>
+
+                <div class="conversation-card">
+                    <div class="conversation-avatar">
+                        <div class="avatar-inner">📊</div>
+                    </div>
+                    <div class="conversation-content">
+                        <div class="conversation-title">Data Analysis</div>
+                        <div class="conversation-preview">Help me understand dataset...</div>
+                    </div>
+                    <div class="conversation-time">4d</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Welcome -->
+        <div class="right-panel">
+            <div class="right-status-bar">
+                <div class="settings-button">⚙</div>
+            </div>
+
+            <div class="welcome-content">
+                <div class="welcome-logo">G</div>
+                <div class="welcome-title">Welcome to Gemini Free</div>
+                <div class="welcome-subtitle">Your free AI assistant powered by Google Gemini</div>
+
+                <div class="new-chat-button">Start New Chat</div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <div class="feature-title">Unlimited Chat</div>
+                        <div class="feature-desc">Ask anything, anytime</div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📸</div>
+                        <div class="feature-title">Image Analysis</div>
+                        <div class="feature-desc">Analyze up to 5 photos</div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <div class="feature-title">Beautiful UI</div>
+                        <div class="feature-desc">Dark & light themes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Screenshot 1 - Conversations (1080x2340)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .phone-screen {
+            width: 1080px;
+            height: 2340px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            height: 100px;
+            background: transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            color: white;
+            font-size: 32px;
+        }
+
+        .status-time {
+            font-weight: 600;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Header with gradient */
+        .header {
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            padding: 60px 40px 80px 40px;
+            position: relative;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .header-title {
+            font-size: 64px;
+            font-weight: 900;
+            color: white;
+        }
+
+        .header-subtitle {
+            font-size: 32px;
+            color: rgba(255,255,255,0.9);
+            margin-top: 10px;
+        }
+
+        .settings-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+        }
+
+        /* Recent Chats Section */
+        .section-header {
+            padding: 50px 40px 30px 40px;
+            font-size: 40px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Conversation List */
+        .conversation-list {
+            padding: 0 40px;
+        }
+
+        .conversation-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 40px;
+            padding: 40px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .conversation-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 5px solid rgba(255,255,255,0.1);
+        }
+
+        .avatar-inner {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #2d2d2d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+        }
+
+        .conversation-content {
+            flex: 1;
+        }
+
+        .conversation-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .conversation-preview {
+            font-size: 34px;
+            color: rgba(255,255,255,0.6);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .conversation-meta {
+            text-align: right;
+        }
+
+        .conversation-time {
+            font-size: 30px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 15px;
+        }
+
+        .conversation-badge {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        /* FAB */
+        .fab {
+            position: absolute;
+            bottom: 80px;
+            right: 50px;
+            width: 160px;
+            height: 160px;
+            border-radius: 80px;
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            box-shadow: 0 15px 40px rgba(66,133,244,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 70px;
+            font-weight: 300;
+        }
+
+        /* Empty state (hidden by default) */
+        .empty-state {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-screen">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-time">9:41</div>
+            <div class="status-icons">
+                <span>📶</span>
+                <span>📡</span>
+                <span>🔋</span>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-top">
+                <div>
+                    <div class="header-title">Gemini AI</div>
+                    <div class="header-subtitle">5 conversations</div>
+                </div>
+                <div class="settings-icon">⚙</div>
+            </div>
+        </div>
+
+        <!-- Recent Chats -->
+        <div class="section-header">Recent Chats</div>
+
+        <!-- Conversation List -->
+        <div class="conversation-list">
+            <div class="conversation-card">
+                <div class="conversation-avatar">
+                    <div class="avatar-inner">💬</div>
+                </div>
+                <div class="conversation-content">
+                    <div class="conversation-title">Creative Writing</div>
+                    <div class="conversation-preview">Help me write a short story about...</div>
+                </div>
+                <div class="conversation-meta">
+                    <div class="conversation-time">2h ago</div>
+                    <div class="conversation-badge">3</div>
+                </div>
+            </div>
+
+            <div class="conversation-card">
+                <div class="conversation-avatar">
+                    <div class="avatar-inner">💻</div>
+                </div>
+                <div class="conversation-content">
+                    <div class="conversation-title">Coding Help</div>
+                    <div class="conversation-preview">How do I implement a binary search...</div>
+                </div>
+                <div class="conversation-meta">
+                    <div class="conversation-time">5h ago</div>
+                </div>
+            </div>
+
+            <div class="conversation-card">
+                <div class="conversation-avatar">
+                    <div class="avatar-inner">✈️</div>
+                </div>
+                <div class="conversation-content">
+                    <div class="conversation-title">Travel Planning</div>
+                    <div class="conversation-preview">I need a 7-day itinerary for Japan...</div>
+                </div>
+                <div class="conversation-meta">
+                    <div class="conversation-time">1d ago</div>
+                </div>
+            </div>
+
+            <div class="conversation-card">
+                <div class="conversation-avatar">
+                    <div class="avatar-inner">🎨</div>
+                </div>
+                <div class="conversation-content">
+                    <div class="conversation-title">Image Analysis</div>
+                    <div class="conversation-preview">What do you see in this photo?</div>
+                </div>
+                <div class="conversation-meta">
+                    <div class="conversation-time">2d ago</div>
+                </div>
+            </div>
+
+            <div class="conversation-card">
+                <div class="conversation-avatar">
+                    <div class="avatar-inner">🧠</div>
+                </div>
+                <div class="conversation-content">
+                    <div class="conversation-title">Learning Python</div>
+                    <div class="conversation-preview">Explain object-oriented programming...</div>
+                </div>
+                <div class="conversation-meta">
+                    <div class="conversation-time">3d ago</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAB -->
+        <div class="fab">+</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Gemini AI Icon - Modern "G" Design -->
+    <group android:translateX="54" android:translateY="54">
+
+        <!-- Large "G" letter with gradient -->
+        <path android:pathData="M 12,-24 C 18,-24 22,-20 22,-14 L 22,-10 L 12,-10 L 12,-14 C 12,-15 11,-16 10,-16 L -10,-16 C -11,-16 -12,-15 -12,-14 L -12,14 C -12,15 -11,16 -10,16 L 10,16 C 11,16 12,15 12,14 L 12,4 L 2,4 L 2,-6 L 22,-6 L 22,14 C 22,20 18,24 12,24 L -12,24 C -18,24 -22,20 -22,14 L -22,-14 C -22,-20 -18,-24 -12,-24 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="-22"
+                    android:startY="-24"
+                    android:endX="22"
+                    android:endY="24">
+                    <item android:color="#4285F4" android:offset="0.0" />
+                    <item android:color="#34A853" android:offset="0.4" />
+                    <item android:color="#FBBC04" android:offset="0.7" />
+                    <item android:color="#EA4335" android:offset="1.0" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Small accent dots for visual interest -->
+        <path
+            android:pathData="M -28,-28 A 2,2 0 1,1 -28,-24 A 2,2 0 1,1 -28,-28 Z"
+            android:fillColor="#4285F4"/>
+        <path
+            android:pathData="M 28,-28 A 2,2 0 1,1 28,-24 A 2,2 0 1,1 28,-28 Z"
+            android:fillColor="#34A853"/>
+        <path
+            android:pathData="M -28,28 A 2,2 0 1,1 -28,32 A 2,2 0 1,1 -28,28 Z"
+            android:fillColor="#FBBC04"/>
+        <path
+            android:pathData="M 28,28 A 2,2 0 1,1 28,32 A 2,2 0 1,1 28,28 Z"
+            android:fillColor="#EA4335"/>
+    </group>
+</vector>
