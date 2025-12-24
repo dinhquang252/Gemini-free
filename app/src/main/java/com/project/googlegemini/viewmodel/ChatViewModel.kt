@@ -25,7 +25,7 @@ import java.io.InputStream
 
 class ChatViewModel(
     application: Application,
-    private val conversationId: Long
+    val conversationId: Long
 ) : AndroidViewModel(application) {
     private val repository: ChatRepository
     private var generativeModel: GenerativeModel? = null

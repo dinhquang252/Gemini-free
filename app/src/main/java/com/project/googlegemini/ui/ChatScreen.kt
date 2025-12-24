@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
@@ -69,6 +70,7 @@ fun ChatScreen(
     viewModel: ChatViewModel,
     onNavigateToSettings: () -> Unit = {},
     onNavigateBack: () -> Unit = {},
+    onMenuClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     // Set status bar color to match surface
@@ -191,12 +193,22 @@ fun ChatScreen(
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
+                    if (onMenuClick != null) {
+                        IconButton(onClick = onMenuClick) {
+                            Icon(
+                                imageVector = Icons.Default.Menu,
+                                contentDescription = "Menu",
+                                tint = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+                    } else if (onNavigateBack != {}) {
+                        IconButton(onClick = onNavigateBack) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = "Back",
+                                tint = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(

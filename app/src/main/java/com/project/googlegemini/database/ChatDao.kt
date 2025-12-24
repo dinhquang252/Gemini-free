@@ -8,6 +8,15 @@ interface ConversationDao {
     @Query("SELECT * FROM conversations ORDER BY updatedAt DESC")
     fun getAllConversations(): Flow<List<ConversationEntity>>
 
+    @Query("SELECT * FROM conversations WHERE category = :category ORDER BY updatedAt DESC")
+    fun getConversationsByCategory(category: String): Flow<List<ConversationEntity>>
+
+    @Query("SELECT * FROM conversations ORDER BY updatedAt DESC LIMIT 1")
+    suspend fun getLatestConversation(): ConversationEntity?
+
+    @Query("SELECT DISTINCT category FROM conversations ORDER BY category ASC")
+    fun getAllCategories(): Flow<List<String>>
+
     @Query("SELECT * FROM conversations WHERE id = :id")
     suspend fun getConversationById(id: Long): ConversationEntity?
 

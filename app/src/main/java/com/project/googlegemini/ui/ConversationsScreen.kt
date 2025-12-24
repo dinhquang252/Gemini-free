@@ -54,10 +54,12 @@ fun ConversationsScreen(
     onNavigateToChat: (Long) -> Unit,
     onNavigateToSettings: () -> Unit,
     onNavigateToSearch: () -> Unit,
+    onMenuClick: (() -> Unit)? = null,
+    selectedCategory: String = "All",
     modifier: Modifier = Modifier
 ) {
     val viewModel: ConversationsViewModel = viewModel()
-    val conversations by viewModel.conversations.collectAsState()
+    val conversations by viewModel.getConversationsByCategory(selectedCategory).collectAsState(initial = emptyList())
     val context = LocalContext.current
     val adManager = remember { AdManager(context) }
 
@@ -80,7 +82,7 @@ fun ConversationsScreen(
                     title = {
                         Column {
                             Text(
-                                text = "Gemini AI",
+                                text = if (selectedCategory == "All") "Gemini AI" else selectedCategory,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 24.sp
                             )
@@ -91,16 +93,27 @@ fun ConversationsScreen(
                             )
                         }
                     },
+                    navigationIcon = {
+                        if (onMenuClick != null) {
+                            IconButton(onClick = onMenuClick) {
+                                Icon(
+                                    imageVector = Icons.Default.Menu,
+                                    contentDescription = "Menu",
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                        }
+                    },
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = MaterialTheme.colorScheme.surface,
                         titleContentColor = MaterialTheme.colorScheme.onSurface,
                         actionIconContentColor = MaterialTheme.colorScheme.onSurface
                     ),
                     actions = {
-                        IconButton(onClick = onNavigateToSettings) {
+                        IconButton(onClick = onNavigateToSearch) {
                             Icon(
-                                imageVector = Icons.Default.Settings,
-                                contentDescription = "Settings",
+                                imageVector = Icons.Default.Search,
+                                contentDescription = "Search",
                                 modifier = Modifier.size(24.dp)
                             )
                         }

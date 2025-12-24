@@ -9,18 +9,17 @@ import androidx.lifecycle.viewModelScope
 import com.project.googlegemini.database.ChatDatabase
 import com.project.googlegemini.database.ChatRepository
 import com.project.googlegemini.database.ConversationEntity
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class ConversationsViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: ChatRepository
+    private val conversationDao: com.project.googlegemini.database.ConversationDao
 
     init {
         val database = ChatDatabase.getDatabase(application)
         repository = ChatRepository(database.conversationDao(), database.messageDao())
+        conversationDao = database.conversationDao()
     }
 
     var searchQuery by mutableStateOf("")
@@ -35,6 +34,14 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
         SharingStarted.WhileSubscribed(5000),
         emptyList()
     )
+
+    fun getConversationsByCategory(category: String): Flow<List<ConversationEntity>> {
+        return if (category == "All") {
+            conversationDao.getAllConversations()
+        } else {
+            conversationDao.getConversationsByCategory(category)
+        }
+    }
 
     fun updateSearchQuery(query: String) {
         searchQuery = query
