@@ -71,10 +71,10 @@ fun ChatScreen(
     onNavigateBack: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    // Set status bar color to match top bar
+    // Set status bar color to match surface
     SetStatusBarColor(
-        color = MaterialTheme.colorScheme.primary,
-        darkIcons = false
+        color = MaterialTheme.colorScheme.surface,
+        darkIcons = true
     )
 
     var userInput by remember { mutableStateOf("") }
@@ -185,7 +185,7 @@ fun ChatScreen(
                             Text(
                                 text = "Typing...",
                                 fontSize = 12.sp,
-                                color = Color.White.copy(alpha = 0.7f)
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
                     }
@@ -195,14 +195,14 @@ fun ChatScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
-                            tint = Color.White
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    actionIconContentColor = MaterialTheme.colorScheme.onPrimary
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    titleContentColor = MaterialTheme.colorScheme.onSurface,
+                    actionIconContentColor = MaterialTheme.colorScheme.onSurface
                 ),
                 actions = {
                     IconButton(onClick = { showMenu = true }) {

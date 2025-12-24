@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -52,10 +53,10 @@ fun SearchScreen(
     val isSearching = viewModel.isSearching
     val focusRequester = remember { FocusRequester() }
 
-    // Set status bar color to match top bar (light surface uses dark icons)
+    // Set status bar color to match surface
     SetStatusBarColor(
         color = MaterialTheme.colorScheme.surface,
-        darkIcons = true  // Surface is usually light, so use dark icons
+        darkIcons = true
     )
 
     // Request focus on search field when screen opens
@@ -74,17 +75,18 @@ fun SearchScreen(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
+            .statusBarsPadding()
     ) {
-        // Search header with input
+        // Search header
         Surface(
             modifier = Modifier.fillMaxWidth(),
             color = MaterialTheme.colorScheme.surface,
-            shadowElevation = 4.dp
+            shadowElevation = 2.dp
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp)
+                    .padding(horizontal = 16.dp, vertical = 12.dp)
             ) {
                 // Search bar with back button
                 Row(
@@ -112,7 +114,7 @@ fun SearchScreen(
                         placeholder = {
                             Text(
                                 "Search conversations...",
-                                style = MaterialTheme.typography.bodyLarge
+                                style = MaterialTheme.typography.bodyMedium
                             )
                         },
                         leadingIcon = {
@@ -137,8 +139,9 @@ fun SearchScreen(
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = MaterialTheme.colorScheme.primary,
                             unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f),
-                            focusedContainerColor = MaterialTheme.colorScheme.surface,
-                            unfocusedContainerColor = MaterialTheme.colorScheme.surface
+                            focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+                            unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
+                            cursorColor = MaterialTheme.colorScheme.primary
                         ),
                         singleLine = true
                     )
@@ -147,10 +150,10 @@ fun SearchScreen(
                 // Result count
                 if (searchQuery.isNotEmpty() && !isSearching) {
                     Text(
-                        text = "${searchResults.size} conversation${if (searchResults.size != 1) "s" else ""} found",
+                        text = "${searchResults.size} result${if (searchResults.size != 1) "s" else ""}",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
-                        modifier = Modifier.padding(start = 52.dp, top = 8.dp)
+                        modifier = Modifier.padding(start = 52.dp, top = 4.dp)
                     )
                 }
             }

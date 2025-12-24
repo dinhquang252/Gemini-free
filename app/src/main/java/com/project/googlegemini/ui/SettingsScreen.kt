@@ -5,7 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -49,6 +51,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.project.googlegemini.ui.theme.GeminiBlue
+import com.project.googlegemini.ui.theme.GradientPrimary
 import com.project.googlegemini.utils.ApiKeyManager
 import com.project.googlegemini.utils.BackupManager
 import com.project.googlegemini.utils.BackupStats
@@ -74,10 +77,10 @@ fun SettingsScreen(
 
     var showDeleteDialog by remember { mutableStateOf(false) }
 
-    // Set status bar color to match top bar
+    // Set status bar color to match surface
     SetStatusBarColor(
-        color = MaterialTheme.colorScheme.primary,
-        darkIcons = false
+        color = MaterialTheme.colorScheme.surface,
+        darkIcons = true
     )
 
     Scaffold(
@@ -94,9 +97,9 @@ fun SettingsScreen(
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    titleContentColor = MaterialTheme.colorScheme.onSurface,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
         }

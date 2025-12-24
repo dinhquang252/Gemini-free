@@ -61,10 +61,10 @@ fun ConversationsScreen(
     val context = LocalContext.current
     val adManager = remember { AdManager(context) }
 
-    // Set status bar color to match gradient top bar
+    // Set status bar color to match surface
     SetStatusBarColor(
-        color = MaterialTheme.colorScheme.primary,
-        darkIcons = false
+        color = MaterialTheme.colorScheme.surface,
+        darkIcons = true
     )
 
     Box(
@@ -76,45 +76,36 @@ fun ConversationsScreen(
             modifier = Modifier.fillMaxSize(),
             containerColor = Color.Transparent,
             topBar = {
-                // Modern gradient header
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(
-                            brush = GradientPrimary
-                        )
-                ) {
-                    TopAppBar(
-                        title = {
-                            Column {
-                                Text(
-                                    text = "Gemini AI",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 24.sp
-                                )
-                                Text(
-                                    text = "${conversations.size} conversation${if (conversations.size != 1) "s" else ""}",
-                                    fontSize = 12.sp,
-                                    color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f)
-                                )
-                            }
-                        },
-                        colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = Color.Transparent,
-                            titleContentColor = MaterialTheme.colorScheme.onPrimary,
-                            actionIconContentColor = MaterialTheme.colorScheme.onPrimary
-                        ),
-                        actions = {
-                            IconButton(onClick = onNavigateToSettings) {
-                                Icon(
-                                    imageVector = Icons.Default.Settings,
-                                    contentDescription = "Settings",
-                                    modifier = Modifier.size(24.dp)
-                                )
-                            }
+                TopAppBar(
+                    title = {
+                        Column {
+                            Text(
+                                text = "Gemini AI",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 24.sp
+                            )
+                            Text(
+                                text = "${conversations.size} conversation${if (conversations.size != 1) "s" else ""}",
+                                fontSize = 12.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
                         }
-                    )
-                }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        titleContentColor = MaterialTheme.colorScheme.onSurface,
+                        actionIconContentColor = MaterialTheme.colorScheme.onSurface
+                    ),
+                    actions = {
+                        IconButton(onClick = onNavigateToSettings) {
+                            Icon(
+                                imageVector = Icons.Default.Settings,
+                                contentDescription = "Settings",
+                                modifier = Modifier.size(24.dp)
+                            )
+                        }
+                    }
+                )
             },
             floatingActionButton = {
                 ExtendedFloatingActionButton(

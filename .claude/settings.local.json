@@ -25,7 +25,8 @@
       "Bash(git add:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nInitial commit: Gemini AI Chat App with Cloud Backup\n\nFeatures:\n- Chat with Google Gemini AI (text + image analysis up to 5 images)\n- Conversation management (create, rename, delete, search)\n- Search conversations with message preview and highlighting\n- Dark/Light mode with beautiful gradient UI\n- Cloud Backup & Sync to Google Drive\n- Voice input (Speech-to-Text)\n- Stop generation mid-response\n- Swipe to delete conversations\n- Status bar color matching top bar\n- AdMob integration\n- Material Design 3\n\n🤖 Generated with Claude Code\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(git push:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git remote set-url origin git@github.com:dinhquang252/Gemini-free.git)"
     ],
     "deny": [],
     "ask": []
