@@ -15,7 +15,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.project.googlegemini.ui.ChatScreenWithDrawer
-import com.project.googlegemini.ui.SearchScreen
 import com.project.googlegemini.ui.SetupScreen
 import com.project.googlegemini.ui.SettingsScreen
 import com.project.googlegemini.ui.theme.GoogleGeminiTheme

@@ -196,7 +196,13 @@ fun SetupScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "API key của bạn sẽ được lưu an toàn trên thiết bị này",
+            text = "API key của bạn sẽ được lưu an toàn trên thiết bị này. Chúng tôi không quản lý bất cứ thứ gì liên quan đến dữ liệu cá nhân",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center
+        )
+        Text(
+            text = "Chọn Create API key -> Default Gemini Project-> Create key",
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center

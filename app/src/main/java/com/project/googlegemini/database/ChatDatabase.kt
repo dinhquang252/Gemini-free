@@ -6,7 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [ConversationEntity::class, MessageEntity::class],
+    entities = [
+        ConversationEntity::class,
+        MessageEntity::class
+    ],
     version = 3,
     exportSchema = false
 )

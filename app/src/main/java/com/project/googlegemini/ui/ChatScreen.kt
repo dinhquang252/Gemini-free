@@ -217,6 +217,7 @@ fun ChatScreen(
                     actionIconContentColor = MaterialTheme.colorScheme.onSurface
                 ),
                 actions = {
+                    // More menu
                     IconButton(onClick = { showMenu = true }) {
                         Icon(
                             imageVector = Icons.Default.MoreVert,
