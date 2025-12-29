@@ -216,12 +216,8 @@ class ChatViewModel(
         val userMessagesCount = currentMessages.count { it.isFromUser }
 
         if (userMessagesCount == 0) {
-            // Generate title from first message (max 50 chars)
-            val title = if (userMessage.length > 50) {
-                userMessage.take(47) + "..."
-            } else {
-                userMessage
-            }
+            // Try to generate AI-powered title
+            val title = generateSmartTitle(userMessage)
 
             // Update conversation title in database
             repository.conversationDao.getConversationById(conversationId)?.let { conversation ->
@@ -231,6 +227,37 @@ class ChatViewModel(
                 // Update the StateFlow so UI updates immediately
                 _conversationTitle.value = title
             }
+        }
+    }
+
+    private suspend fun generateSmartTitle(userMessage: String): String {
+        return try {
+            // Use AI to generate a concise title (2-5 words)
+            val titlePrompt = """
+                Generate a very short title (2-5 words maximum) for this conversation topic:
+                "$userMessage"
+
+                Return ONLY the title, nothing else. No quotes, no explanation.
+            """.trimIndent()
+
+            val response = generativeModel?.generateContent(titlePrompt)
+            val aiTitle = response?.text?.trim()?.take(50) ?: fallbackTitle(userMessage)
+
+            // Clean up the AI response (remove quotes if any)
+            aiTitle.replace("\"", "").replace("'", "").trim().ifBlank {
+                fallbackTitle(userMessage)
+            }
+        } catch (e: Exception) {
+            // Fallback to simple truncation if AI fails
+            fallbackTitle(userMessage)
+        }
+    }
+
+    private fun fallbackTitle(userMessage: String): String {
+        return if (userMessage.length > 50) {
+            userMessage.take(47) + "..."
+        } else {
+            userMessage
         }
     }
 

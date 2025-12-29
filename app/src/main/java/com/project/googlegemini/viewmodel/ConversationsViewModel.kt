@@ -73,4 +73,8 @@ class ConversationsViewModel(application: Application) : AndroidViewModel(applic
             repository.deleteConversation(id)
         }
     }
+
+    suspend fun getConversationById(id: Long): ConversationEntity? {
+        return repository.conversationDao.getConversationById(id)
+    }
 }

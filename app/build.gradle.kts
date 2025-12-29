@@ -94,6 +94,11 @@ dependencies {
     // Coil for image loading
     implementation("io.coil-kt:coil-compose:2.5.0")
 
+    // Markdown rendering
+    implementation("com.halilibo.compose-richtext:richtext-ui:0.17.0")
+    implementation("com.halilibo.compose-richtext:richtext-ui-material3:0.17.0")
+    implementation("com.halilibo.compose-richtext:richtext-commonmark:0.17.0")
+
     // Room Database
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)

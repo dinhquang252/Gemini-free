@@ -23,11 +23,13 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.FileDownload
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.SmartToy
 import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.*
@@ -63,6 +65,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import coil.compose.AsyncImage
 import java.text.SimpleDateFormat
 import java.util.*
+import com.project.googlegemini.ui.components.MarkdownText
+import com.project.googlegemini.utils.ConversationExporter
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.project.googlegemini.viewmodel.ConversationsViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,11 +91,14 @@ fun ChatScreen(
     val messages by viewModel.messages.collectAsState()
     val conversationTitle by viewModel.conversationTitle.collectAsState()
     val context = LocalContext.current
+    val scope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
     val adManager = remember { AdManager(context) }
+    val conversationsViewModel: ConversationsViewModel = viewModel()
     var showRenameDialog by remember { mutableStateOf(false) }
     var renameText by remember { mutableStateOf("") }
     var showMenu by remember { mutableStateOf(false) }
+    var showExportDialog by remember { mutableStateOf(false) }
     var isListening by remember { mutableStateOf(false) }
     var selectedImageUris by remember { mutableStateOf<List<Uri>>(emptyList()) }
 
@@ -244,6 +254,19 @@ fun ChatScreen(
                             }
                         )
                         DropdownMenuItem(
+                            text = { Text("Export cuộc hội thoại") },
+                            onClick = {
+                                showExportDialog = true
+                                showMenu = false
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Default.FileDownload,
+                                    contentDescription = "Export"
+                                )
+                            }
+                        )
+                        DropdownMenuItem(
                             text = { Text("Cài đặt") },
                             onClick = {
                                 onNavigateToSettings()
@@ -320,6 +343,31 @@ fun ChatScreen(
                 Column(
                     modifier = Modifier.fillMaxWidth()
                 ) {
+                    // Voice listening indicator
+                    if (isListening) {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.colorScheme.errorContainer)
+                                .padding(12.dp),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            // Animated dots
+                            repeat(3) { index ->
+                                VoiceListeningDot(delay = index * 200)
+                                if (index < 2) Spacer(modifier = Modifier.width(4.dp))
+                            }
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Text(
+                                text = "Listening...",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onErrorContainer,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+                    }
+
                     // Image preview
                     if (selectedImageUris.isNotEmpty()) {
                         LazyRow(
@@ -512,6 +560,87 @@ fun ChatScreen(
             }
         )
     }
+
+    // Export dialog
+    if (showExportDialog) {
+        AlertDialog(
+            onDismissRequest = { showExportDialog = false },
+            title = { Text("Export Cuộc Hội Thoại") },
+            text = {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text("Chọn định dạng file:")
+
+                    // TXT Export
+                    OutlinedButton(
+                        onClick = {
+                            scope.launch {
+                                val conversation = conversationsViewModel.getConversationById(viewModel.conversationId)
+                                conversation?.let {
+                                    val uri = ConversationExporter.exportConversation(
+                                        context,
+                                        it,
+                                        messages,
+                                        ConversationExporter.ExportFormat.TXT
+                                    )
+                                    uri?.let { fileUri ->
+                                        ConversationExporter.shareExportedFile(
+                                            context,
+                                            fileUri,
+                                            ConversationExporter.ExportFormat.TXT
+                                        )
+                                    }
+                                }
+                            }
+                            showExportDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(imageVector = Icons.Default.FileDownload, contentDescription = null)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Export as TXT")
+                    }
+
+                    // Markdown Export
+                    OutlinedButton(
+                        onClick = {
+                            scope.launch {
+                                val conversation = conversationsViewModel.getConversationById(viewModel.conversationId)
+                                conversation?.let {
+                                    val uri = ConversationExporter.exportConversation(
+                                        context,
+                                        it,
+                                        messages,
+                                        ConversationExporter.ExportFormat.MARKDOWN
+                                    )
+                                    uri?.let { fileUri ->
+                                        ConversationExporter.shareExportedFile(
+                                            context,
+                                            fileUri,
+                                            ConversationExporter.ExportFormat.MARKDOWN
+                                        )
+                                    }
+                                }
+                            }
+                            showExportDialog = false
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(imageVector = Icons.Default.Share, contentDescription = null)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("Export as Markdown")
+                    }
+                }
+            },
+            confirmButton = {},
+            dismissButton = {
+                TextButton(onClick = { showExportDialog = false }) {
+                    Text("Hủy")
+                }
+            }
+        )
+    }
 }
 
 @Composable
@@ -641,12 +770,22 @@ fun MessageBubbleEnhanced(message: Message) {
                         }
                     )
             ) {
-                Text(
-                    text = message.text,
-                    color = if (message.isFromUser) Color.White else MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(12.dp)
-                )
+                if (message.isFromUser) {
+                    // User messages - plain text
+                    Text(
+                        text = message.text,
+                        color = Color.White,
+                        style = MaterialTheme.typography.bodyLarge,
+                        modifier = Modifier.padding(12.dp)
+                    )
+                } else {
+                    // AI messages - markdown rendering
+                    MarkdownText(
+                        markdown = message.text,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.padding(12.dp)
+                    )
+                }
             }
 
             // Timestamp
@@ -742,6 +881,27 @@ fun TypingDot(delay: Int = 0) {
             .offset(y = offsetY.dp)
             .clip(CircleShape)
             .background(GeminiBlue)
+    )
+}
+
+@Composable
+fun VoiceListeningDot(delay: Int = 0) {
+    val infiniteTransition = rememberInfiniteTransition(label = "listening")
+    val scale by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.5f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(600, delayMillis = delay, easing = EaseInOutCubic),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "scale"
+    )
+
+    Box(
+        modifier = Modifier
+            .size((8 * scale).dp)
+            .clip(CircleShape)
+            .background(MaterialTheme.colorScheme.onErrorContainer)
     )
 }
 
